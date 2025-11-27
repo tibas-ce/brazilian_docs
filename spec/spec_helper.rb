@@ -1,6 +1,6 @@
 # Carrega o Bundler e configura o ambiente de gems conforme o Gemfile.
 # Isso garante que todas as dependências necessárias estejam disponíveis quando os testes forem executados.
-require "bundle/setup"
+require "bundler/setup"
 # Carrega a gem principal do projeto para que possa ser testada.
 # Assim, todos os módulos, classes e métodos da biblioteca ficam acessíveis dentro dos testes.
 require "brazilian_docs"
