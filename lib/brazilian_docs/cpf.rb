@@ -7,6 +7,10 @@ module BrazilianDocs
 
     # Pesos usados no cálculo do segundo dígito verificador.
     SECOND_WEIGHTS = (2..11).to_a.reverse.freeze
+
+    # Máscara usada para capturar os 11 dígitos do CPF em quatro grupos: 3-3-3-2.
+    # exemplo: "12345678909" => "123.456.789-09"
+    FORMAT_MASK = /(\d{3})(\d{3})(\d{3})(\d{2})/
     
     def initialize(document)
       # Limpa o CPF com a função compartilhada 'cleam_document'
