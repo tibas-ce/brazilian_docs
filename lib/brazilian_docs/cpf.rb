@@ -1,21 +1,23 @@
+require_relative 'base'
+
 module BrazilianDocs 
-  class CPF
+  class CPF < Base
     # .freeze impede que o array seja modificado acidentalmente.
     FIRST_WEIGHTS = (2..10).to_a.reverse.freeze
 
     # Pesos usados no cálculo do segundo dígito verificador.
     SECOND_WEIGHTS = (2..11).to_a.reverse.freeze
     
-    def initialize(doc)
-      # Remove tudo que não for número do CPF.
-      @document = doc.to_s.gsub(/[^0-9]/, '')
+    def initialize(document)
+      # Limpa o CPF com a função compartilhada 'cleam_document'
+      @document_cleam = cleam_document(document)
       # Converte cada caractere para número.
-      @digits = @document.chars.map(&:to_i)
+      @digits = @document_cleam.chars.map(&:to_i)
     end
 
     def valid?
       # Retorna falso se não tiver 11 dígitos ou se todos forem iguais (ex: 11111111111)
-      return false unless @document.length == 11 && !all_same_digits?
+      return false unless @document_cleam.length == 11 && !all_same_digits?
 
       # Calcula o primeiro dígito verificador
       calculated_first_verifier  = calculate_verifier(@digits[0..8], FIRST_WEIGHTS)
