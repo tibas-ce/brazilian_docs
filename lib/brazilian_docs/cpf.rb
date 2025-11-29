@@ -15,6 +15,11 @@ module BrazilianDocs
       @digits = @document_cleam.chars.map(&:to_i)
     end
 
+    # Retorna o CPF sem formatação (apenas números), e sempre retorna uma string
+    def number
+      @document_cleam.to_s
+    end
+
     def valid?
       # Retorna falso se não tiver 11 dígitos ou se todos forem iguais (ex: 11111111111)
       return false unless @document_cleam.length == 11 && !all_same_digits?
