@@ -39,6 +39,12 @@ module BrazilianDocs
       calculated_second_verifier == @digits[10]
     end
 
+    # Método de formatação da instâcia
+    def formatted
+      # Aplica a FORMAT_MASK no number é retorna o CPF formatado
+      number.gsub(FORMAT_MASK, "\\1.\\2.\\3-\\4")
+    end
+
     private
 
     # Verifica se todos os dígitos do CPF são iguais (isso invalida o CPF)
