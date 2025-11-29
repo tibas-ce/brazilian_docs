@@ -7,12 +7,21 @@ module BrazilianDocs
 
     # Pesos usados no cálculo do segundo dígito verificador.
     SECOND_WEIGHTS = (2..11).to_a.reverse.freeze
+
+    # Máscara usada para capturar os 11 dígitos do CPF em quatro grupos: 3-3-3-2.
+    # exemplo: "12345678909" => "123.456.789-09"
+    FORMAT_MASK = /(\d{3})(\d{3})(\d{3})(\d{2})/
     
     def initialize(document)
       # Limpa o CPF com a função compartilhada 'cleam_document'
       @document_cleam = cleam_document(document)
       # Converte cada caractere para número.
       @digits = @document_cleam.chars.map(&:to_i)
+    end
+
+    # Retorna o CPF sem formatação (apenas números), e sempre retorna uma string
+    def number
+      @document_cleam.to_s
     end
 
     def valid?
@@ -28,6 +37,12 @@ module BrazilianDocs
       calculated_second_verifier = calculate_verifier(@digits[0..9], SECOND_WEIGHTS)
       # Retorna se o último dígito está correto
       calculated_second_verifier == @digits[10]
+    end
+
+    # Método de formatação da instâcia
+    def formatted
+      # Aplica a FORMAT_MASK no number é retorna o CPF formatado
+      number.gsub(FORMAT_MASK, "\\1.\\2.\\3-\\4")
     end
 
     private
