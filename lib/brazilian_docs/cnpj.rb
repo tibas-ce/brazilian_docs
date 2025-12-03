@@ -46,6 +46,14 @@ module BrazilianDocs
       @document.to_s
     end
 
+    # Métodos de classe
+    
+    # Método que validar um CNPJ sem criar uma instância permanente
+    def self.valid?(cnpj)
+      # Cria uma instância temporária e delega a verificação para #valid?.
+      new(cnpj).valid?
+    end
+
     private
 
     # Verifica se todos os dígitos do CNPJ são iguais (isso invalida o CNPJ)
