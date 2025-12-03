@@ -29,6 +29,11 @@ module BrazilianDocs
       calculated_second_verifier == @digits[13]
     end
 
+    # Retorna o CNPJ sem formatação (apenas números), e sempre retorna uma string
+    def number
+      @document.to_s
+    end
+
     private
 
     # Verifica se todos os dígitos do CNPJ são iguais (isso invalida o CNPJ)
