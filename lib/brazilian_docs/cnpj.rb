@@ -7,6 +7,10 @@ module BrazilianDocs
 
     SECOND_WEIGHTS = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2].freeze
 
+    # Máscara usada para capturar os 14 dígitos do CNPJ em cinco grupos: 2-3-3-4-2.
+    # exemplo: "11444777000161" => "11.444.777/0001-61"
+    FORMAT_MASK = /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/
+
     def initialize(doc)
       # Remove tudo que não for número do CNPJ.
       @document = cleam_document(doc)
@@ -27,6 +31,33 @@ module BrazilianDocs
       # E verifica se o segundo dígito também é igual; se ambos forem, retorna true
       calculated_first_verifier == @digits[12] &&
       calculated_second_verifier == @digits[13]
+    end
+
+    # Método de formatação da instâcia
+    def formatted
+      # Retorna nil se o CNPJ não for válido
+      return nil unless valid?
+      # Aplica a FORMAT_MASK no number é retorna o CNPJ formatado
+      @document.gsub(FORMAT_MASK, "\\1.\\2.\\3/\\4-\\5")
+    end
+
+    # Retorna o CNPJ sem formatação (apenas números), e sempre retorna uma string
+    def number
+      @document.to_s
+    end
+
+    # Métodos de classe
+    
+    # Método que validar um CNPJ sem criar uma instância permanente
+    def self.valid?(cnpj)
+      # Cria uma instância temporária e delega a verificação para #valid?.
+      new(cnpj).valid?
+    end
+
+    # Método que formata o CNPJ informado sem criar uma instância permanente
+    def self.format(cnpj)
+      # A lógica de formatação é delegada a #formatted, que retorna nil se o CNPJ for inválido
+      new(cnpj).formatted
     end
 
     private
