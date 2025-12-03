@@ -55,6 +55,12 @@ module BrazilianDocs
       new(cpf).valid?
     end
 
+    # Método que formata o CPF informado sem criar uma instância permanente
+    def self.format(cpf)
+      # A lógica de formatação é delegada a #formatted, que retorna nil se o CPF for inválido
+      new(cpf).formatted
+    end
+
     private
 
     # Verifica se todos os dígitos do CPF são iguais (isso invalida o CPF)
