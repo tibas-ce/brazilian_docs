@@ -33,6 +33,14 @@ module BrazilianDocs
       calculated_second_verifier == @digits[13]
     end
 
+    # Método de formatação da instâcia
+    def formatted
+      # Retorna nil se o CNPJ não for válido
+      return nil unless valid?
+      # Aplica a FORMAT_MASK no number é retorna o CNPJ formatado
+      @document.gsub(FORMAT_MASK, "\\1.\\2.\\3/\\4-\\5")
+    end
+
     # Retorna o CNPJ sem formatação (apenas números), e sempre retorna uma string
     def number
       @document.to_s
