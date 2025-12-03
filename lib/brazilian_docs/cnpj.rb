@@ -54,6 +54,12 @@ module BrazilianDocs
       new(cnpj).valid?
     end
 
+    # Método que formata o CNPJ informado sem criar uma instância permanente
+    def self.format(cnpj)
+      # A lógica de formatação é delegada a #formatted, que retorna nil se o CNPJ for inválido
+      new(cnpj).formatted
+    end
+
     private
 
     # Verifica se todos os dígitos do CNPJ são iguais (isso invalida o CNPJ)
