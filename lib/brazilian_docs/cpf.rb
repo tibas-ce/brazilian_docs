@@ -47,11 +47,19 @@ module BrazilianDocs
       @document_cleam.gsub(FORMAT_MASK, "\\1.\\2.\\3-\\4")
     end
 
+    # Métodos de classe
+    
+    # Método que validar um CPF sem criar uma instância permanente
+    def self.valid?(cpf)
+      # Cria uma instância temporária e delega a verificação para #valid?.
+      new(cpf).valid?
+    end
+
     private
 
     # Verifica se todos os dígitos do CPF são iguais (isso invalida o CPF)
     def all_same_digits?
-      @document =~ /(\d)\1{10}/
+      @document_cleam =~ /(\d)\1{10}/
     end
   end
 end
