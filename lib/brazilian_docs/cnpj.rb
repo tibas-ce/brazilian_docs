@@ -7,6 +7,10 @@ module BrazilianDocs
 
     SECOND_WEIGHTS = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2].freeze
 
+    # Máscara usada para capturar os 14 dígitos do CNPJ em cinco grupos: 2-3-3-4-2.
+    # exemplo: "11444777000161" => "11.444.777/0001-61"
+    FORMAT_MASK = /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/
+
     def initialize(doc)
       # Remove tudo que não for número do CNPJ.
       @document = cleam_document(doc)
