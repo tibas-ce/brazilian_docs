@@ -41,15 +41,31 @@ module BrazilianDocs
 
     # Método de formatação da instâcia
     def formatted
+      # Retorna nil se o CPF não for válido
+      return nil unless valid?
       # Aplica a FORMAT_MASK no number é retorna o CPF formatado
-      number.gsub(FORMAT_MASK, "\\1.\\2.\\3-\\4")
+      @document_cleam.gsub(FORMAT_MASK, "\\1.\\2.\\3-\\4")
+    end
+
+    # Métodos de classe
+    
+    # Método que validar um CPF sem criar uma instância permanente
+    def self.valid?(cpf)
+      # Cria uma instância temporária e delega a verificação para #valid?.
+      new(cpf).valid?
+    end
+
+    # Método que formata o CPF informado sem criar uma instância permanente
+    def self.format(cpf)
+      # A lógica de formatação é delegada a #formatted, que retorna nil se o CPF for inválido
+      new(cpf).formatted
     end
 
     private
 
     # Verifica se todos os dígitos do CPF são iguais (isso invalida o CPF)
     def all_same_digits?
-      @document =~ /(\d)\1{10}/
+      @document_cleam =~ /(\d)\1{10}/
     end
   end
 end
