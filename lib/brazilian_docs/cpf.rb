@@ -41,8 +41,10 @@ module BrazilianDocs
 
     # Método de formatação da instâcia
     def formatted
+      # Retorna nil se o CPF não for válido
+      return nil unless valid?
       # Aplica a FORMAT_MASK no number é retorna o CPF formatado
-      number.gsub(FORMAT_MASK, "\\1.\\2.\\3-\\4")
+      @document_cleam.gsub(FORMAT_MASK, "\\1.\\2.\\3-\\4")
     end
 
     private
