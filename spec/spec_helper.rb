@@ -8,6 +8,9 @@ require "brazilian_docs"
 
 # Configurações globais do RSpec.
 RSpec.configure do |config|
+  # Configura formato de saída dos testes para documentation
+  config.default_formatter = 'doc'
+
   # Armazena o estado dos testes (ex.: exemplos que falharam) no arquivo .rspec_status.
   # Isso permite rodar novamente apenas os testes que falharam usando:
   #   rspec --only-failures
